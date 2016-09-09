@@ -1,6 +1,10 @@
 # urlinfo
 ## Introduction
- This service provides a simple method that takes in a url and checks if its a malware url or not. The sources for malware urls come from multiple sources. 
+ This service provides a simple service `urlinfo` that responds to GET requests where the caller passes in a URL and the service responds indicating if the url is malware or not. 
+ The GET requests should look like this:   GET /urlinfo/1/{hostname_and_port}/{original_path_and_query_string}
+ The service responds with the following:
+  - If the url IS NOT malware: Response code: 204, Body: (empty)
+  - If the url IS malware: Response code: 200, Body: malware
 
  The response codes and the body content returned follows the same spec as the Google implementation (https://developers.google.com/safe-browsing/v3/lookup-guide).
   
