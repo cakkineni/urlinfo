@@ -2,8 +2,6 @@ package com.ca.urlinfo;
 
 import com.ca.utils.Url;
 
-import java.net.URISyntaxException;
-
 /**
  * Created by cakkinen on 9/6/16.
  */
@@ -21,12 +19,13 @@ public class UrlChecker {
         this.model = new Model();
     }
 
-    public boolean isMalware(String url) throws URISyntaxException {
-        if (url == null || url == "") {
+    public boolean isMalware(String url, String fullUrl) {
+        if (url == null || url.isEmpty() || fullUrl == null || fullUrl.isEmpty()) {
             return false;
         } else {
             String domainName = Url.getHost(url);
-            return model.checkKey(domainName);
+            System.out.println(url + ":" + fullUrl);
+            return model.checkKey(domainName, fullUrl);
         }
     }
 

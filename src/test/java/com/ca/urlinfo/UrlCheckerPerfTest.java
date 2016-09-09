@@ -20,13 +20,13 @@ import java.util.concurrent.TimeUnit;
 public class UrlCheckerPerfTest {
 
     @BeforeClass
-    public void runOnceBeforeClass() {
+    public static void runOnceBeforeClass() {
         try {
             Model model = new Model();
             BufferedReader br = new BufferedReader(new FileReader(UrlCheckerTest.class.getClassLoader().getResource("samples").toURI().getRawPath()));
             String line;
             while ((line = br.readLine()) != null) {
-                model.setKey(Url.getHost(line));
+                model.setKey(Url.getHost(line), line);
             }
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
@@ -73,31 +73,20 @@ public class UrlCheckerPerfTest {
     @Benchmark
     public void
     whenFound(BenchmarkState state, Blackhole bh) {
-
-        try {
-            bh.consume(state.checker.isMalware("geil.alon3.tk"));
-        } catch (java.net.URISyntaxException e) {
-        }
+        bh.consume(state.checker.isMalware("geil.alon3.tk", "geil.alon3.tk"));
     }
 
     @Benchmark
     public void
     whenNotFound(BenchmarkState state, Blackhole bh) {
+        bh.consume(state.checker.isMalware("google.com:443", "http://www.google.com:443"));
 
-        try {
-            bh.consume(state.checker.isMalware("http://www.google.com:443"));
-        } catch (java.net.URISyntaxException e) {
-        }
     }
 
     @Benchmark
     public void
     whenFoundWithService(BenchmarkState state, Blackhole bh) {
-
-        try {
-            bh.consume(state.checker.isMalware("http://www.google.com:443"));
-        } catch (java.net.URISyntaxException e) {
-        }
+        bh.consume(state.checker.isMalware("google.com:443", "http://www.google.com:443"));
     }
 
 }

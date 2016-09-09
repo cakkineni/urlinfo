@@ -29,14 +29,12 @@ public class Model {
     }
 
 
-    public boolean checkKey(String key) {
+    public boolean checkKey(String key, String value) {
         if (key != null && key.contains(".") && key.length() >= 3) {
             Jedis redis = null;
             try {
                 redis = getJedisConnection();
-                String bucketId = key.substring(0, 2);
-                boolean val = redis.hexists("BID:" + bucketId, key);
-                return val;
+                return redis.sismember(key, value);
             } catch (JedisConnectionException e) {
                 throw e;
             } finally {
@@ -47,13 +45,12 @@ public class Model {
         return false;
     }
 
-    public boolean setKey(String key) {
+    public boolean setKey(String key, String value) {
         if (key != null && key.contains(".") && key.length() >= 3) {
             Jedis redis = null;
             try {
-                String bucketId = key.substring(0, 2);
                 redis = getJedisConnection();
-                redis.hset("BID:" + bucketId, key, "");
+                redis.sadd(key, value);
                 return true;
             } catch (JedisConnectionException e) {
                 throw e;
@@ -66,12 +63,12 @@ public class Model {
         return false;
     }
 
-    public boolean removeKey(String key) {
+    public boolean removeKey(String key, String value) {
         if (key != null && key.contains(".") && key.length() >= 3) {
             try {
                 String bucketId = key.substring(0, 2);
                 Jedis redis = getJedisConnection();
-                redis.hdel("BID:" + bucketId, key);
+                redis.srem(key, value);
                 return true;
             } catch (JedisConnectionException e) {
                 throw e;
