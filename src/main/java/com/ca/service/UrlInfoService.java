@@ -23,8 +23,13 @@ public class UrlInfoService {
             response.setStatus(HttpStatus.BAD_REQUEST.value());
             return "";
         }
-        if (isMalware) response.setStatus(HttpStatus.OK.value());
-        else response.setStatus(HttpStatus.NO_CONTENT.value());
-        return isMalware ? "malware" : "";
+        if (isMalware) {
+            response.setStatus(HttpStatus.OK.value());
+            return "malware";
+        }
+        else {
+            response.setStatus(HttpStatus.NO_CONTENT.value());
+            return "";
+        }
     }
 }
