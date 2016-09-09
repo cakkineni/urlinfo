@@ -10,7 +10,18 @@
   
 ## Implementation
 
+Request Handling:
+   The current implementation in dev is using a builtin tomcat server embedded in spring boot. But for production deployments, it is preferred to have this front ended by nginix, and spin up 
+   new nodes if request response time is going up. Spinning up new nodes and serving new requests can all be automated by providing API endpoints to spin up new instances 
+   in Cisco Cloud/any cloud and installing. 
+Storage:
+   Redis Sets
+   Sharding
+Updates:
+
 ## Installation
+Redis:
+https://hub.docker.com/_/redis/
 
 ## Versions
 1.0-Snapshot
@@ -65,3 +76,11 @@ Example:
 
 
 ## Related Resources
+https://developers.google.com/safe-browsing/v3/lookup-guide
+
+## TODO
+1. Move redis connection string to config file.
+2. Use Redis sharding so that when a server runs out of space, the shards can be moved to different servers and brought back up with no downtime.
+3. Bug when parsing urls with %2f (/). Issue with how Spring resolves urls. Currently throws a 404.
+
+
