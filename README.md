@@ -10,18 +10,28 @@
   
 ## Implementation
 
-Request Handling:
-   The current implementation in dev is using a builtin tomcat server embedded in spring boot. But for production deployments, it is preferred to have this front ended by nginix, and spin up 
-   new nodes if request response time is going up. Spinning up new nodes and serving new requests can all be automated by providing API endpoints to spin up new instances 
-   in Cisco Cloud/any cloud and installing. 
-Storage:
-   Redis Sets
-   Sharding
-Updates:
+####Request Handling:
+The current implementation in dev is using a builtin tomcat server embedded in spring boot. But for production deployments, it is preferred to have this front ended by nginix, and spin up new nodes if request response time is going up. Spinning up new nodes and serving new requests can all be automated by providing API endpoints to spin up new instances in the cloud of choice and deploying the urlinfo service.
+
+####Storage:
+TODO: Redis Sets
+TODO: Sharding
+
+####Handling data updates:
+The class `Model` exposes a method `setKey` that can be used to push new data to the Redis. This can be throttled by pushing the messages to a Queue and reading from the queue and pushing to redis.
 
 ## Installation
-Redis:
-https://hub.docker.com/_/redis/
+####Docker: 
+The application is being tested on docker version 1.12.
+ 
+####Redis:
+In the current dev environment, Redis is being run as a docker container (https://hub.docker.com/_/redis/). Bring up the redis container using `docker run --name redis -d -p 6379:6379 redis:3.0.7-alpine`
+
+####Source
+The Application is being developed using `Java 1.8`, `Maven`, `Spring boot`, `Jedis`.
+
+####Dev Deployment
+Spring boot packages an internal Tomcat server and should be able to bring up the webservice locally without having to install additional tomcat.
 
 ## Versions
 1.0-Snapshot
