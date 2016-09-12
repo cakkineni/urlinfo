@@ -16,6 +16,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * Created by cakkinen on 9/8/16.
+ * JMH Benchmark tests for checking performance issues after changes.
  */
 public class UrlCheckerPerfTest {
 

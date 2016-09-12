@@ -28,4 +28,9 @@ public class UrlTest {
     public void whenNoHttpNoWwwPort() throws Exception {
         assertEquals("google.com", Url.getHost("google.com:8080"));
     }
+
+    @Test
+    public void whenIPAddress() throws Exception {
+        assertEquals("127.0.0.1", Url.getHost("127.0.0.1"));
+    }
 }
