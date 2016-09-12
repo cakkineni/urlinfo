@@ -29,8 +29,15 @@ public class Model {
     }
 
 
+    /**
+     * Checks if a given key & value is stored in the redis database.
+     * @param key The key to check for.
+     * @param value The value to check for.
+     * @return Returns true if the key/value combination exists in the data store, if not returns false. Returns false
+     * for null params.
+     */
     public boolean checkKey(String key, String value) {
-        if (key != null && key.contains(".") && key.length() >= 3) {
+        if (key != null && value != null) {
             Jedis redis = null;
             try {
                 redis = getJedisConnection();
@@ -45,8 +52,14 @@ public class Model {
         return false;
     }
 
+    /**
+     * Adds the given key, value combination to the data store for eventual querying.
+     * @param key The key to store.
+     * @param value The value to store.
+     * @return Returns true if the key/value combination is stored, false if key OR value is null.
+     */
     public boolean setKey(String key, String value) {
-        if (key != null && key.contains(".") && key.length() >= 3) {
+        if (key != null && value != null) {
             Jedis redis = null;
             try {
                 redis = getJedisConnection();
@@ -63,10 +76,15 @@ public class Model {
         return false;
     }
 
+    /**
+     * Removes a given key/value pair from the data store.
+     * @param key The key to remove.
+     * @param value The value to remove.
+     * @return Returns true if the value is removed, false for null key/value inputs.
+     */
     public boolean removeKey(String key, String value) {
-        if (key != null && key.contains(".") && key.length() >= 3) {
+        if (key != null && value != null) {
             try {
-                String bucketId = key.substring(0, 2);
                 Jedis redis = getJedisConnection();
                 redis.srem(key, value);
                 return true;
