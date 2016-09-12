@@ -1,5 +1,8 @@
 package com.ca.urlinfo;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.stereotype.Component;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
@@ -8,11 +11,21 @@ import redis.clients.jedis.exceptions.JedisConnectionException;
 /**
  * Created by cakkinen on 9/7/16.
  */
+@Component
+@PropertySource("classpath:/application.properties")
 public class Model {
 
     static JedisPool jedisPool;
 
-    private static synchronized Jedis getJedisConnection() {
+    @Value("${redis.host}")
+    String redisHost = "localhost";
+
+    @Value("${redis.port}")
+    int redisPort = 6379;
+
+    private synchronized Jedis getJedisConnection() {
+
+
         try {
             if (jedisPool == null) {
                 JedisPoolConfig config = new JedisPoolConfig();
@@ -20,7 +33,7 @@ public class Model {
                 config.setMaxIdle(10);
                 config.setMinIdle(1);
                 config.setMaxWaitMillis(30000);
-                jedisPool = new JedisPool(config, "localhost", 6379);
+                jedisPool = new JedisPool(config, redisHost, redisPort);
             }
             return jedisPool.getResource();
         } catch (JedisConnectionException e) {

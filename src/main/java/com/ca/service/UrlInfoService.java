@@ -1,6 +1,7 @@
 package com.ca.service;
 
 import com.ca.urlinfo.UrlChecker;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,7 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 
 @RestController
 public class UrlInfoService {
-    static UrlChecker urlChecker = new UrlChecker();
+
+    @Autowired
+    UrlChecker urlChecker;
 
     @RequestMapping(path = "/urlinfo/1/{url}/{full_url}", method = RequestMethod.GET)
     public String isMalwareUrl(@PathVariable("url") String url, @PathVariable("full_url") String fullUrl, HttpServletResponse response) {
