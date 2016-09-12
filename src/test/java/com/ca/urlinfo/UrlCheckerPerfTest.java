@@ -63,11 +63,12 @@ public class UrlCheckerPerfTest {
     @State(Scope.Thread)
     public static class BenchmarkState {
         UrlChecker checker;
+        Model m = new Model();
 
         @Setup(Level.Trial)
         public void
         initialize() {
-            checker = new UrlChecker();
+            checker = new UrlChecker(m);
         }
     }
 
