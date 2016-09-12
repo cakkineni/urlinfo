@@ -11,7 +11,7 @@ public class Url {
         int doubleSlash = url.indexOf("//");
         doubleSlash = doubleSlash == -1 ? 0 : doubleSlash + 2;
 
-        int end = url.indexOf('/', doubleSlash);
+        int end = url.indexOf(':', doubleSlash);
         end = end >= 0 ? end : url.indexOf('/', doubleSlash);
         end = end >= 0 ? end : url.length();
         return url.substring(doubleSlash, end).replaceFirst("^www.*?\\.", "");

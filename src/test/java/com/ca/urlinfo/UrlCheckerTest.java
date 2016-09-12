@@ -4,7 +4,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created by cakkinen on 9/6/16.
@@ -38,46 +39,46 @@ public class UrlCheckerTest {
 
     @Test
     public void whenNull() throws Exception {
-        assertEquals(false, checker.isMalware(null, null));
+        assertFalse(checker.isMalware(null, null));
     }
 
     @Test
     public void whenEmpty() throws Exception {
-        assertEquals(false, checker.isMalware("", ""));
+        assertFalse(checker.isMalware("", ""));
     }
 
     @Test
     public void whenNotFound() throws Exception {
-        assertEquals(false, checker.isMalware("google.com:80", "http://www.google.com"));
+        assertFalse(checker.isMalware("google.com:80", "http://www.google.com"));
     }
 
     @Test
     public void whenUrlHttpNoWwwNoPortNoQS() throws Exception {
-        assertEquals(true, checker.isMalware(key, urlHttpNoWwwNoPortNoQS));
+        assertTrue(checker.isMalware(key, urlHttpNoWwwNoPortNoQS));
     }
 
     @Test
     public void whenUrlNoHttpWwwNoPortNoQS() throws Exception {
-        assertEquals(true, checker.isMalware(key, urlNoHttpWwwNoPortNoQS));
+        assertTrue(checker.isMalware(key, urlNoHttpWwwNoPortNoQS));
     }
 
     @Test
     public void whenUrlNoHttpNoWwwNoPortNoQS() throws Exception {
-        assertEquals(true, checker.isMalware(key, urlNoHttpNoWwwNoPortNoQS));
+        assertTrue(checker.isMalware(key, urlNoHttpNoWwwNoPortNoQS));
     }
 
     @Test
     public void whenUrlHttpNoWwwNoPortQS() throws Exception {
-        assertEquals(true, checker.isMalware(key, urlHttpNoWwwNoPortQS));
+        assertTrue(checker.isMalware(key, urlHttpNoWwwNoPortQS));
     }
 
     @Test
     public void whenUrlHttpsPort() throws Exception {
-        assertEquals(true, checker.isMalware(key, urlHttpsPort));
+        assertTrue(checker.isMalware(key, urlHttpsPort));
     }
 
     @Test
     public void whenUrlHttpPort() throws Exception {
-        assertEquals(true, checker.isMalware(key, urlHttpPort));
+        assertTrue(checker.isMalware(key, urlHttpPort));
     }
 }
