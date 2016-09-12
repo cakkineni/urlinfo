@@ -24,7 +24,6 @@ public class UrlChecker {
             return false;
         } else {
             String domainName = Url.getHost(url);
-            System.out.println(url + ":" + fullUrl);
             return model.checkKey(domainName, fullUrl);
         }
     }
