@@ -16,7 +16,6 @@ public class UrlInfoService {
     @RequestMapping(path = "/urlinfo/1/{url}/{full_url}", method = RequestMethod.GET)
     public String isMalwareUrl(@PathVariable("url") String url, @PathVariable("full_url") String fullUrl, HttpServletResponse response) {
         if (url != null && !url.isEmpty() && fullUrl != null && !fullUrl.isEmpty()) {
-            System.out.println(url + ":" + fullUrl);
             boolean isMalware = urlChecker.isMalware(url, fullUrl);
             if (isMalware) {
                 response.setStatus(HttpStatus.OK.value());
